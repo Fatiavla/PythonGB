@@ -10,8 +10,8 @@
 string = '1-2*3'
 new_string = string.replace('-', ' - ').replace('*', ' * ').replace('/', ' / ').replace('+', ' + ').split()
 while len(new_string) > 1:
-    i = 0
     while '*' in new_string or '/' in new_string:
+        i = 0
         while i < len(new_string):
             if new_string[i] == '*':
                 new_string [i-1] = int(new_string[i-1]) * int(new_string[i+1])
@@ -22,10 +22,12 @@ while len(new_string) > 1:
                 new_string [i-1] = int(new_string[i-1]) / int(new_string[i+1])
                 new_string.pop(i)
                 new_string.pop(i)
+            i += 1
 
-while len(new_string) > 1:
-    i = 0
+
+    
     while '+' in new_string or '-' in new_string:
+        i = 0
         while i < len(new_string):
             if new_string[i] == '+':
                 new_string [i-1] = int(new_string[i-1]) + int(new_string[i+1])
@@ -36,11 +38,7 @@ while len(new_string) > 1:
                 new_string [i-1] = int(new_string[i-1]) - int(new_string[i+1])
                 new_string.pop(i)
                 new_string.pop(i)
+            i+= 1
 
 # print(words) 
-print(new_string)
-
-# for x in range(len(new_string)):
-#     if new_string[x] == int:
-#         words += new_string[x]
-# print(new_string[x])
+print(new_string[0])
