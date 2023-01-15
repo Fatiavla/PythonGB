@@ -19,5 +19,6 @@ for i in range(1, n+1):
     lst = round((1+1/i)**i, 3)
     my_list.append(lst)
 
-print(f'Последовательность: {my_list}\nСумма: {round(sum(my_list), 2)}')
+new_list = list(enumerate(my_list))
+print(f'Последовательность: {new_list}\nСумма: {round(sum(my_list), 2)}')
 

@@ -20,3 +20,5 @@ for i in my_list:
         i = round(i%1,2)
         new_list.append(float(i))
 print(max(new_list) - min(new_list))
+
+

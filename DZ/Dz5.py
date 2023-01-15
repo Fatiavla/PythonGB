@@ -1,72 +1,84 @@
-import random
+from random import randint, choice
+# Создайте программу для игры с конфетами человек против человека.
 
-# Генерируем словарь из степени и коэфицентов и записываем результат в словарь
-def make_equa():
-    degree = int(input('Введите максимальную степень: '))
-    equation = {} # пустой словарь
-    for i in range(degree, -1, -1):
-        equation[i] = random.randint(-100, 100)
-    return equation
+# Условие задачи: На столе лежит заданное количество конфет. 
+# Играют два игрока делая ход друг после друга. 
+# Первый ход определяется жеребьёвкой. 
+# За один ход можно забрать не более чем 28 конфет. 
+# Все конфеты оппонента достаются сделавшему последний ход.
+# a) Добавьте игру против бота (сделал)
+# b) Подумайте как наделить бота 'интеллектом' (сделал)
 
+greeting = ('Здравствуйте! Это игра "Забери все конфеты!" Начинаем нашу игру')
 
-# Переводим словарь в строку, где ключи - степень, а значение - число 
-def dict_to_string(equa: dict) -> str:
-    new_string = []
-    for key, value in equa.items():# .valuse - по значениям, items - и ключи, и значения 
-        if value != 0: 
-         new_string.append(f'{value}*x^{key}') # строчку возвращаем в список
-    new_string =' ' + ' + '.join(new_string) + ' = 0'                 # убираем все не нужные символы
-    new_string = new_string.replace('+ -', '- ') \
-        .replace('*x^0', '').replace(' 1*x', ' x').replace('-1*x', '-x').replace('x^1', 'x')
-    return new_string[1:]
-
-
-# переводим строку опять в словарь, где возвращаем значение 1, для сложения в дальнейшем
-def string_to_dict(equa: str) -> dict:
-    equa = (' ' + equa).replace(' + ', ' ').replace(' - ', ' -').replace('-x',' -1*x').replace(' x', ' 1*x')\
-        .replace('*x ', '*x^1 ').split()[:-2]
-    dict_equa = {}
-    for item in equa[1:]:
-        i = item.split('*x^')
-        if len(i) > 1:
-            dict_equa[int(i[1])] = int(i[0])
-        elif len(i) == 1 and i[0] != '':
-            dict_equa[0] = int(i[0])
-    return dict_equa
+messages = [
+    "Ваша очередь брать конфеты",
+    "возьмите конфеты",
+    "сколько конфет возьмёте?",
+    "берите, не стесняйтесь",
+    "Ваш ход",
+]
 
 
+def introduce_players():
+    player1 = input("Давайте знакомиться. Как Вас зовут?\n")
+    player2 = "Bot"
+    print(f"Очень приятно, меня зовут {player2}")
+    return [player1, player2]
 
 
-# Складываем два словоря
-def addition (first_eq: dict, second_eq: dict):
-    final_eq = {}
-    final_eq.update(first_eq) # обновляет словарь элементами из другого объекта словаря или из итерируемых пар ключ-значение
-    final_eq.update(second_eq)
+def get_rules(players):
+    n = int(input("Сколько конфет будем разыгрывать?\n "))
+    m = int(input("Сколько максимально будем брать конфет за один ход?\n "))
+    first = int(input(f"{players[0]}, если хотите ходить первым, нажмите 1, если нет, любую другую клавишу\n"))
+    if first != 1:
+        first = 0
+    return [n, m, int(first)]
 
 
-    for key in final_eq:
-        final_eq[key] = first_eq.get(key, 0) + second_eq.get(key, 0) # складываем ключи
-    return final_eq
+def play_game(rules, players, messages):
+    count = rules[2]
+    print(count)
+    if rules[0] % 10 == 1 and 9 > rules[0] > 10:
+        letter = "а"
+    elif 1 < rules[0] % 10 < 5 and 9 > rules[0] > 10:
+        letter = "ы"
+    else:
+        letter = ""
+    while rules[0] > 0:
+        if not count % 2:
+            move = rules[0] % rules[1] + 1
+            print(f"Я забираю {move}")
+        else:
+            print(f"{players[0]}, {choice(messages)}")
+            move = int(input())
+            if move > rules[0] or move > rules[1]:
+                print(f"Это слишком много, можно взять не более {rules[1]} конфет{letter}, у нас всего {rules[0]} конфет{letter}")
+                attempt = 3
+                while attempt > 0:
+                    if rules[0] >= move <= rules[1]:
+                        break
+                    print(f"Попробуйте ещё раз, у Вас {attempt} попытки")
+                    move = int(input())
+                    attempt -= 1
+                else:
+                    return print(f"Очень жаль, у Вас не осталось попыток. Game over!")
+        rules[0] = rules[0] - move
+        if rules[0] > 0:
+            print(f"Осталось {rules[0]} конфет{letter}")
+        else:
+            print("Все конфеты разобраны.")
+        count += 1
+    return players[not count % 2]
 
 
-# создаем 2 файла, куда помещаем 2 уравнения, в 3 файл - записываем результат сложения
-def write_file(name, st):
-    with open(name, 'w') as data:
-        data.write(st)
+print(greeting)
 
+players = introduce_players()
+rules = get_rules(players)
 
-example1 = make_equa()
-example2 = make_equa()
-str_eq1 = dict_to_string(example1)
-str_eq2 = dict_to_string(example2)
-print(str_eq1)
-print(str_eq2)
-dict_eq1 = string_to_dict(str_eq1)
-dict_eq2 = string_to_dict(str_eq2)
-dict_final = addition(dict_eq1, dict_eq2)
-str_final = dict_to_string(dict_final)
-print(str_final)
-
-write_file('first_file.txt', str_eq1)
-write_file('second_file.txt', str_eq2)
-write_file('addition_file..txt', str_final)
+winer = play_game(rules, players, messages)
+if not winer:
+    print("У нас нет победителя.")
+else:
+    print(f"Поздравляю! В этот раз победил {winer}! Ему достаются все конфеты!")
