@@ -6,7 +6,7 @@ maps = [1,2,3,
 
 
 # создание победных комбинаций и вывод на экран
-victori_comb = [[0,1,2],
+victori = [[0,1,2],
                 [3,4,5],
                 [6,7,8],
                 [0,3,6],
@@ -33,7 +33,7 @@ def steps(step, symbol):
 
 def result():
     win = ''
-    for i in victori_comb:
+    for i in victori:
         if maps[i[0]] == 'X' and maps[i[1]] == 'X' and maps [i[2]] == 'X':
             win = 'X'
         if maps[i[0]] == 'O' and maps[i[1]] == 'O' and maps [i[2]] == 'O':

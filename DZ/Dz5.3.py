@@ -6,7 +6,7 @@
 with open('dz5.3_RLE.txt', 'r') as data:
     my_text = data.read()
 
-def encode_rle(ss):
+def encode(ss):
     str_code = ''
     prev_char = ''
     count = 1
@@ -21,7 +21,7 @@ def encode_rle(ss):
     return str_code
 
             
-str_code = encode_rle(my_text)
+str_code = encode(my_text)
 print(str_code)
 dev_12 = str_code
 

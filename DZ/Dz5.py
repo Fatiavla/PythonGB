@@ -9,7 +9,7 @@ from random import randint, choice
 # a) Добавьте игру против бота (сделал)
 # b) Подумайте как наделить бота 'интеллектом' (сделал)
 
-greeting = ('Здравствуйте! Это игра "Забери все конфеты!" Начинаем нашу игру')
+hello = ('Здравствуйте! Это игра "Забери все конфеты!" Начинаем нашу игру')
 
 messages = [
     "Ваша очередь брать конфеты",
@@ -28,12 +28,12 @@ def introduce_players():
 
 
 def get_rules(players):
-    n = int(input("Сколько конфет будем разыгрывать?\n "))
-    m = int(input("Сколько максимально будем брать конфет за один ход?\n "))
+    number = int(input("Сколько конфет будем разыгрывать?\n "))
+    maxOfCandy = int(input("Сколько максимально будем брать конфет за один ход?\n "))
     first = int(input(f"{players[0]}, если хотите ходить первым, нажмите 1, если нет, любую другую клавишу\n"))
     if first != 1:
         first = 0
-    return [n, m, int(first)]
+    return [number, maxOfCandy, int(first)]
 
 
 def play_game(rules, players, messages):
@@ -72,7 +72,7 @@ def play_game(rules, players, messages):
     return players[not count % 2]
 
 
-print(greeting)
+print(hello)
 
 players = introduce_players()
 rules = get_rules(players)
