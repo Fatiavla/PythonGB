@@ -25,8 +25,17 @@ def get_numbers(message: list):
     return numbers
 
 def show_list(example):
-    word = example
-    print(word)
+  return example
 
 def end_program():
     print('До свидания! Программа завершена')
+
+# def check(word: list):
+#  for i in word:
+#     if [i] == '*' or [i] == '/':
+#         print('Введите простое уравнение: ')
+#         return menu
+#     else: 
+#         continue
+
+

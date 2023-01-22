@@ -3,29 +3,28 @@
 def split_numbers(string: str):
     new_numbers = string.replace(
         '-', ' - ').replace('*', ' * ').replace('/', ' / ').replace('+', ' + ').split()
-    print(new_numbers)
     return new_numbers
 
 
-def sum(new_string: list):
-    while len(new_string) > 1:
-        while '+' in new_string or '-' in new_string:
-            i = 0
-            while i < len(new_string):
-                if new_string[i] == '+':
-                    new_string[i-1] = int(new_string[i-1]) + int(new_string[i+1])
-                    new_string.pop(i)
-                    new_string.pop(i)
+# def (new_string: list):
+#     while len(new_string) > 1:
+#         while '+' in new_string or '-' in new_string:
+#             i = 0
+#             while i < len(new_string):
+#                 if new_string[i] == '+':
+#                     new_string[i-1] = int(new_string[i-1]) + int(new_string[i+1])
+#                     new_string.pop(i)
+#                     new_string.pop(i)
 
-                elif new_string[i] == '-':
-                    new_string[i-1] = int(new_string[i-1]) - int(new_string[i+1])
-                    new_string.pop(i)
-                    new_string.pop(i)
-                i += 1
-    return new_string[0]
+#                 elif new_string[i] == '-':
+#                     new_string[i-1] = int(new_string[i-1]) - int(new_string[i+1])
+#                     new_string.pop(i)
+#                     new_string.pop(i)
+#                 i += 1
+#     return new_string[0]
 
 
-def strong(new_string: list):
+def solution(new_string: list):
     while len(new_string) > 1:
         while '*' in new_string or '/' in new_string:
             i = 0
@@ -39,10 +38,7 @@ def strong(new_string: list):
                     new_string [i-1] = int(new_string[i-1]) / int(new_string[i+1])
                     new_string.pop(i)
                     new_string.pop(i)
-                i += 1
-
-
-        
+                i += 1       
         while '+' in new_string or '-' in new_string:
             i = 0
             while i < len(new_string):
@@ -57,6 +53,4 @@ def strong(new_string: list):
                     new_string.pop(i)
                 i+= 1
     return new_string[0]
-
-# print(words)
 
