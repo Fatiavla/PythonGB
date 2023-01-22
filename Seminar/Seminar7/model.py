@@ -1,52 +1,74 @@
 # база данных где храним всю инфу и тут же будут все функции. Только книгу и методы работы с ней
-import re
 
-phone_book = []
-path = 'Seminar\Seminar7\phone_book.txt'
+class PhoneBook:
 
-def get_phone_book():
-    global phone_book
-    return phone_book
+    phone_book = []
+    path: str
 
-
-def open_file():
-    global phone_book
-    global path
-    with open(path, 'r', encoding ='UTF-8') as data:
-        file = data.readlines()
-    for contact in file:
-        phone_book.append(contact.strip().split(';'))
-    print(phone_book)
-
-def add_new_contact(new_contact: list):
-    global phone_book
-    phone_book.append(new_contact)
+    def __init__(self, path: str = 'Seminar\Seminar7\phone_book.txt'):
+        self.path = path
+        self.open()
 
 
+    def get(self):
+        return self.phone_book
 
-def search_contact(find: str):
-    global phone_book
-    result = []
-    for contact in phone_book:
-        for field in contact:
-            if find in field:
-                result.append(contact)
-                break
-    return result
+    def get_contact(self, text: str):
+        result = []
+        for i, contact in enumerate(self.phone_book):
+            for field in contact:
+                if text in field:
+                    result.append((contact, i))
+                    break
+        if len(result) > 1:
+            return False
+        elif result == []:
+            return result
+        else:
+            return result[0]
 
-def save_file():
-    global phone_book
-    global path
-    pb_str = []
-    for contact in phone_book:
-        pb_str.append(';'.join(contact))
-    with open(path, 'w', encoding ='UTF-8') as data:
-        data.write('\n'.join(pb_str))
+    
 
-def del_contacts ():
-    global phone_book
-    i = int(input('Введите номер, который хотите удалить: '))
-    phone_book.pop(i-1)
+
+    def open(self):
+        with open(self.path, 'r', encoding ='UTF-8') as data:
+            file = data.readlines()
+        for contact in file:
+            self.phone_book.append(contact.strip().split(';'))
+
+    def new(self, new_contact: list):
+        self.phone_book.append(new_contact)
+
+
+
+    def search(self, find: str):
+        result = []
+        for contact in self.phone_book:
+            for field in contact:
+                if find in field:
+                    result.append(contact)
+                    break
+        return result
+
+    def save(self):
+        pb_str = []
+        for contact in self.phone_book:
+            pb_str.append(';'.join(contact))
+        with open(self.path, 'w', encoding ='UTF-8') as data:
+            data.write('\n'.join(pb_str))
+
+
+    def delete(self, contact: list):
+        self.phone_book.remove(contact)
+
+    def change_contact(self, index: int, new: list):
+        self.phone_book[index][0] = new[0] if new[0] != '' else self.phone_book[index][0]
+        self.phone_book[index][1] = new[1] if new[1] != '' else self.phone_book[index][1]
+        self.phone_book[index][2] = new[2] if new[2] != '' else self.phone_book[index][2]
+
+def input_row():
+    pass
+
 
 
     
