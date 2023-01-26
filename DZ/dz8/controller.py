@@ -11,7 +11,7 @@ def button_click():
             case 1:
                 numbers = view.get_numbers('Введите уравнение: ')
                 new_list = model.split_numbers(numbers)
-                
+                # view.check(new_list)
                 print(new_list)
                 for i in range(len(new_list)):
                     e = 0

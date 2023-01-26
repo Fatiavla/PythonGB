@@ -1,4 +1,4 @@
-
+import model
 control = [ 'Элементарное сложение и вычитание (пример 1+1-1+1)',
             'Сложное уравнение (пример 1+2*2/1)',
             'Выход из программы']
@@ -30,12 +30,16 @@ def show_list(example):
 def end_program():
     print('До свидания! Программа завершена')
 
-# def check(word: list):
-#  for i in word:
-#     if [i] == '*' or [i] == '/':
-#         print('Введите простое уравнение: ')
-#         return menu
-#     else: 
-#         continue
-
-
+# def check(new_list):
+#     e = 0
+#     for i in range(len(new_list)):
+#         if new_list[i] == '*' or new_list[i] == '/':
+#             e = 1
+#             print('Введите просто уравнение!')
+#             return check
+#         elif e == 0:
+#             get_sum = model.solution(new_list)
+#             print(f'Сумма уравнения  = {get_sum}')
+#         else:
+#             pass
+# #{numbers}
